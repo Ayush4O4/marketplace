@@ -94,7 +94,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handleProductNotFoundException(ProductNotFoundException ex,HttpServletRequest request){
+    public ResponseEntity<ErrorResponseDto> handleCategoryNotFoundException(ProductNotFoundException ex, HttpServletRequest request){
         ErrorResponseDto response=ErrorResponseDto.builder()
                 .message(ex.getMessage())
                 .statusCode(HttpStatus.NOT_FOUND.value())
@@ -105,7 +105,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(CategoryNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handleProductNotFoundException(CategoryNotFoundException ex,HttpServletRequest request) {
+    public ResponseEntity<ErrorResponseDto> handleCategoryNotFoundException(CategoryNotFoundException ex, HttpServletRequest request) {
         ErrorResponseDto response = ErrorResponseDto.builder()
                 .message(ex.getMessage())
                 .statusCode(HttpStatus.NOT_FOUND.value())
@@ -114,6 +114,18 @@ public class GlobalExceptionHandler {
                 .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
 
+    }
+
+    @ExceptionHandler(UnAuthorizedException.class)
+    public ResponseEntity<ErrorResponseDto> handleUnAuthorizedException(UnAuthorizedException ex,HttpServletRequest request){
+        ErrorResponseDto response=ErrorResponseDto.builder()
+                .message(ex.getMessage())
+                .statusCode(HttpStatus.FORBIDDEN.value())
+                .time(LocalDateTime.now())
+                .url(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     }
 
     @ExceptionHandler(RuntimeException.class)
