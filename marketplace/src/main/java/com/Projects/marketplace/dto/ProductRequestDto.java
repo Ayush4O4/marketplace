@@ -6,6 +6,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.math.BigDecimal;
@@ -17,8 +18,8 @@ public class ProductRequestDto {
     private String name;
     @NotBlank(message = "description of product cannot be empty")
     private String description;
-    @NotBlank(message = "image url cannot be empty")
-    private String url;
+    @NotBlank(message = "image  cannot be empty")
+    private MultipartFile image;
     @DecimalMin(value = "0.1",message = "price must be greater than 0")
     @Digits(integer = 6,fraction = 2)
     @NotNull

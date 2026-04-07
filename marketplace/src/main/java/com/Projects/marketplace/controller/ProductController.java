@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductResponseDto createProduct(@Valid @RequestBody ProductRequestDto productRequestDto){
+    public ProductResponseDto createProduct(@Valid @ModelAttribute ProductRequestDto productRequestDto) throws IOException {
         return productService.createProduct(productRequestDto);
     }
 
@@ -37,8 +38,8 @@ public class ProductController {
     public String deleteProductById(@PathVariable Long id){
         return productService.deleteProductById(id);
     }
-    @PutMapping("/{id}")
-    public ProductResponseDto updateProductById(@PathVariable Long id,@Valid @RequestBody ProductRequestDto productRequestDto){
+    @PatchMapping("/{id}")
+    public ProductResponseDto updateProductById(@PathVariable Long id,@Valid @ModelAttribute ProductRequestDto productRequestDto) throws IOException {
         return productService.updateProductById(id,productRequestDto);
     }
 }
